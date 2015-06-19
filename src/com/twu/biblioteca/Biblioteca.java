@@ -16,7 +16,9 @@ public class Biblioteca {
     public void printListOfBooks() {
         String listofBooks = "";
         for (Book book : books) {
-            listofBooks += book.getBookDetails() + "\n";
+            if( book.checkedIn == true) {
+                listofBooks += book.getBookDetails() + "\n";
+            }
         }
         printStream.print(listofBooks);
     }

@@ -14,15 +14,12 @@ public class Menu {
 
     private BibliotecaBufferedReader bufferedReader;
     private PrintStream printStream;
-    private List<Integer> validOptionsList = new ArrayList<Integer>();
     private Biblioteca biblioteca;
 
     public Menu(Biblioteca biblioteca, BibliotecaBufferedReader bufferedReader, PrintStream printStream) {
         this.biblioteca = biblioteca;
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
-        validOptionsList.add(1);
-        validOptionsList.add(2);
     }
 
     public boolean runMenu(){
@@ -37,7 +34,8 @@ public class Menu {
 
     public void displayMenu() {
         printStream.println("1) List Books");
-        printStream.println("2) Quit");
+        printStream.println("2) Check Out Book");
+        printStream.println("3) Quit");
     }
 
     public int readInput(){
@@ -48,13 +46,8 @@ public class Menu {
         try {
             input = Integer.parseInt(bufferedReader.readLine());
 
-            if(!validOptionsList.contains(input)){
-                input = -1;
-                printStream.println("Select a valid option!");
-            }
         } catch (NumberFormatException numFormatException) {
             input = -1;
-            printStream.println("Select a valid option!");
         }
 
         return input;
@@ -63,13 +56,19 @@ public class Menu {
     public boolean selectFromMenu() {
         boolean keepMenuRunning = true;
 
-        int input =  readInput();
+        int input = readInput();
 
         if(input == 1){
             biblioteca.printListOfBooks();
         }
         else if(input == 2){
+            printStream.println("Enter book title: ");
+        }
+        else if(input == 3){
             keepMenuRunning = false;
+        }
+        else {
+            printStream.println("Select a valid option!");
         }
         return keepMenuRunning;
     }
