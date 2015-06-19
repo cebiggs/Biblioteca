@@ -3,15 +3,10 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Matchers.anySet;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,12 +19,14 @@ public class MenuTest {
     private PrintStream printStream;
     private BibliotecaBufferedReader bufferedReader;
     private Menu menu;
+    private Biblioteca biblioteca;
 
     @Before
     public void setUp() {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BibliotecaBufferedReader.class);
-        menu = new Menu(printStream, bufferedReader);
+        biblioteca = mock(Biblioteca.class);
+        menu = new Menu(biblioteca, bufferedReader, printStream);
     }
 
     @Test

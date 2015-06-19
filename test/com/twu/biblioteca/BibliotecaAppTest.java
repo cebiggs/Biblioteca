@@ -4,8 +4,6 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
@@ -22,26 +20,26 @@ public class BibliotecaAppTest {
         bufferedReader = mock(BibliotecaBufferedReader.class);
         biblioteca = mock(Biblioteca.class);
         menu = mock(Menu.class);
-        bibliotecaApp = new BibliotecaApp(biblioteca, bufferedReader, menu);
+        bibliotecaApp = new BibliotecaApp(bufferedReader, menu);
     }
 
     @Test
     public void shouldDisplayWelcomeMessageOnRun(){
         when(menu.readInput()).thenReturn(2);
-        bibliotecaApp.run();
+        bibliotecaApp.runMenu();
         verify(menu).printWelcomeMessage();
-    }
-
-    @Test
-    public void shouldGetUserInputAfterMenuDisplayed() {
-        when(menu.readInput()).thenReturn(2);
-        bibliotecaApp.run();
-        verify(menu).readInput();
     }
 
     @Test
     public void shouldStopRunningWhenQuitIsSelectedFromMenu() {
         when(menu.readInput()).thenReturn(1).thenReturn(1).thenReturn(2);
-        assertThat(bibliotecaApp.run(), is(true));
+        assertThat(bibliotecaApp.runMenu(), is(true));
+    }
+
+    @Test
+    public void shouldPerformSelectionFromMenuWhenRunning() {
+        when(menu.readInput()).thenReturn(2);
+        bibliotecaApp.runMenu();
+        verify(menu).selectFromMenu();
     }
 }

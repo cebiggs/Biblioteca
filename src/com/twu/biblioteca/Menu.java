@@ -15,8 +15,10 @@ public class Menu {
     private BibliotecaBufferedReader bufferedReader;
     private PrintStream printStream;
     private List<Integer> validOptionsList = new ArrayList<Integer>();
+    private Biblioteca biblioteca;
 
-    public Menu(PrintStream printStream, BibliotecaBufferedReader bufferedReader) {
+    public Menu(Biblioteca biblioteca, BibliotecaBufferedReader bufferedReader, PrintStream printStream) {
+        this.biblioteca = biblioteca;
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
         validOptionsList.add(1);
@@ -30,6 +32,7 @@ public class Menu {
 
     public int readInput(){
         printStream.print("Enter an option: ");
+
         int input;
 
         try {
@@ -46,6 +49,21 @@ public class Menu {
 
         return input;
     }
+
+    public boolean selectFromMenu() {
+        boolean keepMenuRunning = true;
+
+        int input =  readInput();
+
+        if(input == 1){
+            biblioteca.printListOfBooks();
+        }
+        else if(input == 2){
+            keepMenuRunning = false;
+        }
+        return keepMenuRunning;
+    }
+
 
     public void printWelcomeMessage() {
         printStream.println("Welcome to the Biblioteca!");
