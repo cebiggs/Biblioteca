@@ -30,6 +30,13 @@ public class MenuTest {
     }
 
     @Test
+    public void shouldDisplayWelcomeMessageOnRun(){
+        when(menu.readInput()).thenReturn(2);
+        menu.runMenu();
+        verify(printStream).println("Welcome to the Biblioteca!");
+    }
+
+    @Test
     public void shouldDisplayMenu() {
         menu.displayMenu();
         verify(printStream).println("1) List Books");
@@ -61,4 +68,13 @@ public class MenuTest {
         menu.readInput();
         verify(printStream).println("Select a valid option!");
     }
+
+    @Test
+    public void shouldPerformSelectionFromMenuWhenRunning() {
+        when(bufferedReader.readLine()).thenReturn("1", "2");
+        menu.runMenu();
+        assertThat(menu.selectFromMenu(), is(false));
+    }
+
+
 }

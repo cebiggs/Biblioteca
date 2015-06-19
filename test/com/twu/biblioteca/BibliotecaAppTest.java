@@ -20,26 +20,13 @@ public class BibliotecaAppTest {
         bufferedReader = mock(BibliotecaBufferedReader.class);
         biblioteca = mock(Biblioteca.class);
         menu = mock(Menu.class);
-        bibliotecaApp = new BibliotecaApp(bufferedReader, menu);
-    }
-
-    @Test
-    public void shouldDisplayWelcomeMessageOnRun(){
-        when(menu.readInput()).thenReturn(2);
-        bibliotecaApp.runMenu();
-        verify(menu).printWelcomeMessage();
+        bibliotecaApp = new BibliotecaApp();
     }
 
     @Test
     public void shouldStopRunningWhenQuitIsSelectedFromMenu() {
         when(menu.readInput()).thenReturn(1).thenReturn(1).thenReturn(2);
-        assertThat(bibliotecaApp.runMenu(), is(true));
+        assertThat(menu.runMenu(), is(true));
     }
 
-    @Test
-    public void shouldPerformSelectionFromMenuWhenRunning() {
-        when(menu.readInput()).thenReturn(2);
-        bibliotecaApp.runMenu();
-        verify(menu).selectFromMenu();
-    }
 }

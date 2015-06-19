@@ -25,6 +25,16 @@ public class Menu {
         validOptionsList.add(2);
     }
 
+    public boolean runMenu(){
+
+        printWelcomeMessage();
+        displayMenu();
+
+        while ( selectFromMenu() );
+
+        return true;
+    }
+
     public void displayMenu() {
         printStream.println("1) List Books");
         printStream.println("2) Quit");
